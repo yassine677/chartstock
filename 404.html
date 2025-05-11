@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>TradingView Random Chart</title>
+  <style> html, body { margin: 0; padding: 0; height: 100%; } </style>
+</head>
+<body>
+  <div id="tradingview_chart" style="height: 100%;"></div>
+
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    // Récupérer le marché depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const market = urlParams.get('markets') || 'stocks' ;
+
+    // Définir les symboles possibles selon le marché
+    const markets = {
+      forex: ['OANDA:EURUSD', 'OANDA:USDJPY', 'OANDA:GBPUSD', 'OANDA:AUDUSD', 'OANDA:AUDNZD', 'OANDA:USDJPY', 'OANDA:NZDCAD', 'OANDA:GBPNZD', 'OANDA:GBPCHF', 'OANDA:GBPCAD', 'OANDA:EURAUD', 'OANDA:USDCAD','OANDA:USDCHF', 'OANDA:GBPAUD', 'OANDA:NZDUSD', 'OANDA:AUDCAD', 'OANDA:NZDJPY', 'OANDA:EURJPY', 'OANDA:AUDCHF', 'OANDA:EURGBP', 'OANDA:GBPJPY', 'OANDA:XAUUSD'],
+      crypto: ['BINANCE:BTCUSDT', 'BINANCE:ETHUSDT', 'BINANCE:XRPUSDT', 'BINANCE:SOLUSDT'],
+      indices: ['OANDA:SPX500USD', 'OANDA:US30USD', 'OANDA:NAS100USD'],
+      stocks: ['NASDAQ:AAPL', 'NASDAQ:GOOGL', 'NASDAQ:AMZN', 'NASDAQ:MSFT']
+    };
+
+    // Choisir un symbole aléatoire
+    const symbols = markets[market] || markets['forex', 'crypto', 'indices', 'stocks'];
+    const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+
+    // Créer le graphe
+    new TradingView.widget({
+      container_id: "tradingview_chart",
+      autosize: true,
+      symbol: randomSymbol,
+      interval: "60",
+      timezone: "Etc/UTC",
+      theme: "dark",
+      style: "1",
+     "withdateranges": true,
+     "hide_side_toolbar": false,
+     "allow_symbol_change": false,
+      locale: "en",
+      "hide_volume": true,
+      toolbar_bg: "#f1f3f6",
+      enable_publishing: false,
+      hide_top_toolbar: false,
+      save_image: false,
+      show_popup_button: false
+    
+    });
+  </script>
+</body>
+</html>
